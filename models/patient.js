@@ -4,7 +4,6 @@ const db = require("../config/MongoDB");
 const patientSchema = new mongoose.Schema({
     firstName: {
         type: String,
-        required: true
     },
     lastName: {
         type: String,
@@ -13,11 +12,10 @@ const patientSchema = new mongoose.Schema({
     userId: {
         type: String,
         unique: true,
-        required: false
+        required: true
     },
     email: {
         type: String,
-        unique: true,
     },
     phoneNo: {
         type: String
