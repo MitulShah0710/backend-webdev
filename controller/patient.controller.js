@@ -43,8 +43,9 @@ router.get("/getPatient/:id", async function (req, res) {
     console.log("body", body);
     const userID = body.id;
     const patient = await Patient.findOne({ userId: userID });
+    console.log("patient", patient);
     if(patient == null){
-        return res.status(500).send({ message: "Patient Not found"});
+        return res.status(200).send({ message: "Patient Not found"});
     }
     console.log("patient", patient);
     return res.status(200).send({ body: patient});
