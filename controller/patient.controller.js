@@ -11,14 +11,14 @@ router.post("/createPatient", async function (req, res) {
   console.log("body", body);
   const userID = body.userId;
   const { firstName, lastName, email, phoneNo, gender, city, address, choiceOfHospitality } = body
-  const findPatient = await Patient.findOne({ userID });
-  console.log("findPatient", findPatient);
-  if (findPatient !== null) {
-  return res.status(500).send({
-        message: "Patient already exists",
-        body: findPatient
-    });
-  }
+  // const findPatient = await Patient.findOne({ userID });
+  // console.log("findPatient", findPatient);
+  // if (findPatient !== null) {
+  // return res.status(500).send({
+  //       message: "Patient already exists",
+  //       body: findPatient
+  //   });
+  // }
   console.log("No patient found");
   const addPatient = await Patient.create({
     userId: userID,
