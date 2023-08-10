@@ -38,4 +38,16 @@ router.post("/createPatient", async function (req, res) {
     });
 });
 
+router.get("/getPatient/:id", async function (req, res) {
+    const body = req.params;
+    console.log("body", body);
+    const userID = body.id;
+    const patient = await Patient.findOne({ userId: userID });
+    if(patient == null){
+        return res.status(500).send({ message: "Patient Not found"});
+    }
+    console.log("patient", patient);
+    return res.status(200).send({ body: patient});
+});
+
 module.exports = router;
