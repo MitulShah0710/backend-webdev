@@ -52,4 +52,31 @@ router.get("/getPatient/:id", async function (req, res) {
     return res.status(200).send({ body: patient});
 });
 
+router.get("/getPatients", async function (req, res) {
+  // const body = req.params;
+  // console.log("body", body);
+  // const userID = body.id;
+  const patient = await Patient.find();
+  console.log("patient", patient);
+  if(patient == null){
+      return res.status(200).send({ message: "Patient Not found"});
+  }
+  console.log("patient", patient);
+  return res.status(200).send({ body: patient});
+});
+
+router.delete("/deletePatient/:id", async function (req, res) {
+  const params = req.params;
+  console.log("params", params.id);
+  const userID = params.id;
+  console.log("userID", userID);
+  const patient = await Patient.findOne({ userId: userID });
+  console.log("patient", patient);
+  if(patient == null){
+      return res.status(200).send({ message: "Patient Not found"});
+  }
+  console.log("patient", patient);
+  return res.status(200).send({ body: patient});
+});
+
 module.exports = router;
