@@ -81,14 +81,15 @@ router.delete("/deletePatient/:id", async function (req, res) {
 router.post('/uploadProfilePicture', upload.single('profilePicture'), async (req, res) => {
   try {
     const userId = req.body.userId;
-    
+
     // Find the user by userId
     const user = await Patient.findById(userId);
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-
+    console.log("buffer", req.file.buffer);
+    console.log("user", user);
     // Update the profile picture field in the user document
     user.profilePicture = req.file.buffer;
 
