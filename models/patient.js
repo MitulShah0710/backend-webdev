@@ -31,6 +31,9 @@ const patientSchema = new mongoose.Schema({
     },
     choiceOfHospitality: {
         type: String
+    },
+    profilePicture: {
+        type: Buffer,
     }
 })
 

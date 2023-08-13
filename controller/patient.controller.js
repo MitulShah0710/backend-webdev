@@ -67,9 +67,7 @@ router.get("/getPatients", async function (req, res) {
 
 router.delete("/deletePatient/:id", async function (req, res) {
   const params = req.params;
-  console.log("params", params.id);
   const userID = params.id;
-  console.log("userID", userID);
   const patient = await Patient.findOne({ userId: userID });
   console.log("patient", patient);
   if(patient == null){
@@ -80,5 +78,27 @@ router.delete("/deletePatient/:id", async function (req, res) {
   return res.status(200).send({ message: "Patient Deleted successfully" , body: patients});
 });
 
+router.post('/uploadProfilePicture', upload.single('profilePicture'), async (req, res) => {
+  try {
+    const userId = req.body.userId;
+    
+    // Find the user by userId
+    const user = await Patient.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Update the profile picture field in the user document
+    user.profilePicture = req.file.buffer;
+
+    await user.save();
+
+    res.status(200).json({ message: 'Profile picture uploaded successfully' });
+  } catch (error) {
+    console.error('Error uploading profile picture:', error);
+    res.status(500).json({ message: 'An error occurred while uploading the profile picture' });
+  }
+});
 
 module.exports = router;
