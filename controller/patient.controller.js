@@ -75,8 +75,9 @@ router.delete("/deletePatient/:id", async function (req, res) {
   if(patient == null){
       return res.status(200).send({ message: "Patient Not found"});
   }
-  console.log("patient", patient);
-  return res.status(200).send({ body: patient});
+  const deletePatient  = await Patient.deleteOne({ userId: userID });
+  const patients = await Patient.find();
+  return res.status(200).send({ message: "Patient Deleted successfully" , body: patients});
 });
 
 
