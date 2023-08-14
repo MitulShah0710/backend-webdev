@@ -92,7 +92,8 @@ router.post('/uploadProfilePicture', upload.single('profilePicture'), async (req
 
     // Find the user by userId
     const user = await Patient.findById(userId);
-
+    console.log("user", user);
+    console.log("file", req.file);
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
@@ -105,7 +106,8 @@ router.post('/uploadProfilePicture', upload.single('profilePicture'), async (req
     user.profilePicture = req.file.buffer;
 
     await user.save();
-
+    const user1 = await Patient.findById(userId);
+    console.log("user1", user1);
     res.status(200).json({ message: 'Profile picture uploaded successfully' });
   } catch (error) {
     console.error('Error uploading profile picture:', error);
