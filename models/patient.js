@@ -33,11 +33,11 @@ const patientSchema = new mongoose.Schema({
         type: String
     },
     profilePicture: {
-        data: Buffer,  
-        contentType: String 
+        type: Buffer,  
+        // contentType: String 
     }
 })
 
-const patientModel = db.model('patients', patientSchema); // Use db.model to create the model
+const patientModel = db.model('patients', patientSchema);
 
 module.exports = patientModel;
