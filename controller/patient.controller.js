@@ -84,14 +84,22 @@ router.post('/uploadProfilePicture', upload.single('profilePicture'), async (req
   try {
     const userId = req.body.userId;
 
+    // Check if userId is a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: 'Invalid userId format' });
+    }
+
     // Find the user by userId
     const user = await Patient.findById(userId);
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-    console.log("buffer", req.file.buffer);
-    console.log("user", user);
+
+    if (!req.file) {
+      return res.status(400).json({ message: 'No file uploaded' });
+    }
+
     // Update the profile picture field in the user document
     user.profilePicture = req.file.buffer;
 
@@ -103,5 +111,6 @@ router.post('/uploadProfilePicture', upload.single('profilePicture'), async (req
     res.status(500).json({ message: 'An error occurred while uploading the profile picture' });
   }
 });
+
 
 module.exports = router;
